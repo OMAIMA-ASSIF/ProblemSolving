@@ -1,5 +1,5 @@
-#it is not the very good performance I am still working on fixing it :)
-#include <algorithm> // For std::max_element
+// 11 ms for the runtime
+#include <algorithm> 
 using namespace std;
 
 class Solution {
@@ -14,6 +14,13 @@ public:
         }
         return max;
     }
+    long long total_time_req(vector<int>& piles, int k){
+        long long total=0;
+        for (int i =0;i<piles.size(); i++){
+                total += ceil((double)piles[i]/(double)k);
+            }
+        return total;
+    }
 
     int minEatingSpeed(vector<int>& piles, int h) {
          long long low = 1;
@@ -22,15 +29,10 @@ public:
          while (low<=high){
             long long  k =  (high+low)/2;
 
-            long long total_time_req=0;
-            for (int i =0;i<piles.size(); i++){
-                total_time_req += ceil((double)piles[i]/(double)k);
-            }
-            if (total_time_req <= h){
-                high = k - 1;
-            }else{
-                low = k + 1;
-            }
+            long long total_time = total_time_req(piles, k);
+            
+            (total_time <= h)? high = k-1 : low= k+1;
+            
          }
          return low;
 
