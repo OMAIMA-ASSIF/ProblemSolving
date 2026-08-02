@@ -10,6 +10,8 @@
  */
 
 class Solution {
+
+    /* O(n) space complexity
     public ListNode reverseList(ListNode head) {
         if (head!=null){
             ListNode head2 = new ListNode(head.val, null);
@@ -21,6 +23,23 @@ class Solution {
 
             return head2;
         }
+        return head;
+    }
+    */
+
+    //O(1) space complexity
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null) {
+            ListNode next = curr.next; // save next node
+            curr.next = prev;          // reverse the pointer
+            prev = curr;               // move prev
+            curr = next;               // move curr
+        }
+
+        head = prev;
         return head;
     }
 
