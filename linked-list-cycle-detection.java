@@ -8,7 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-// O(n) Time & Space Complexity
+/*O(n) Time & Space Complexity
 class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode tmp = head;
@@ -26,4 +26,24 @@ class Solution {
         
     }
 }
+*/
 
+//O(n) Time Complexity, O(1) : Space complexity
+class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+            
+
+            if(slow==fast){
+                return true;
+            }
+        }
+        return false;
+        
+    }
+}
