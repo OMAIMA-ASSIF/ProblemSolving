@@ -1,0 +1,27 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int max_window_size = 0; // the result
+        int max_freq = 0;
+
+        for (int right = 0; right<s.length();right++){
+            map.put(s.charAt(right), map.getOrDefault(s.charAt(right),0)+1);
+            max_freq = Math.max(max_freq, map.get(s.charAt(right)));
+             
+             //number of replacements = length of cusrrent window - max frequency character.
+            while((right-left+1) - max_freq > k){
+                map.put(s.charAt(left), map.get(s.charAt(left))-1);
+                left++;
+            }
+
+            max_window_size = Math.max(max_window_size,right-left+1);            
+        }
+
+        return max_window_size;
+
+
+
+    }
+}
