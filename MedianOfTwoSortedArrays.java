@@ -1,36 +1,36 @@
+//O(n+m) time et O(1) space 
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int[] nums = new int[nums1.length + nums2.length];
-        int k=0,i=0,j=0;
-        double m;
-        int size1 = nums1.length;
-        int size2 = nums2.length;
-        int size = nums.length;
-        while(k< size && i<size1 && j<size2){
-            if (nums1[i]<nums2[j]){
-                nums[k]=nums1[i];
+        int n = nums1.length;
+        int m = nums2.length;
+
+        int i =0;
+        int j =0;
+
+        int m1=0, m2=0;
+
+        for(int count =0 ; count<= (n+m)/2; count++){
+            m2 =m1;
+            if(i<n && j<m){
+                if(nums1[i]>nums2[j]){
+                    m1 = nums2[j];
+                    j++;
+                }else{
+                    m1 = nums1[i];
+                    i++;
+                }
+            }else if(i<n){
+                m1 = nums1[i];
                 i++;
-            }
-            else{
-                nums[k]=nums2[j];
+            }else{
+                m1 = nums2[j];
                 j++;
             }
-            k++;
         }
 
-        if (i==size1 && k<size ){
-            System.arraycopy(nums2,j , nums, k, size2 - j );
-        }else if (j==size2 && k<size ){
-            System.arraycopy(nums1,i , nums, k, size1 - i );
+        if((n+m)%2==0){
+            return (m1 + m2)/2.0;
         }
-
-        if(size %2 ==0){
-            m =(double) (nums[(size)/2 -1]+nums[(size)/2])/2;
-        }else{
-            m = nums[(size-1)/2];
-        }
-
-        return m;
-
+        return (double)m1;
     }
 }
